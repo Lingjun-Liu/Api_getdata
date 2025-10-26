@@ -203,6 +203,7 @@ API 的访问通常受到严格的认证与授权机制保护，主要有两种�
  > - [Intro to APIs](https://medium.com/@rwilliams_bv/apis-d389aa68104f)
  > - [Lab Video Lecture: Intro to APIS for Computational Social Scientists](https://youtu.be/OD40nwKuVB8)
  > - [使用API](https://melaniewalsh.github.io/Intro-Cultural-Analytics/04-Data-Collection/05-What-Is-API.html)
+ > - [Blog about socail network API](https://rtweet.info/)
 
 
 
