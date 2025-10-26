@@ -274,14 +274,11 @@ print(data)
 
 | 名称 | 类型 | 特点 |
 |------|------|------|
-| [JSONPlaceholder](https://jsonplaceholder.typicode.com/) | 模拟数据 | 免费、无需认证，适合练习 CRUD 操作 |
-| [OpenWeather API](https://openweathermap.org/api) | 天气数据 | 免费套餐足够日常测试，可结合地理位置分析 |
-| [NewsAPI](https://newsapi.org/) | 新闻聚合 | 快速获取各国新闻，适合文本分析、事件追踪 |
+| [JSONPlaceholder](https://jsonplaceholder.typicode.com/) | 模拟数据 | 免费、无需认证，API练习场，适合练习 CRUD 操作 |
 | [Reddit API](https://www.reddit.com/dev/api/) | 社交内容 | 适合话题挖掘、情绪分析，支持多种查询 |
 | [Twitter/X API](https://developer.twitter.com/en/docs/twitter-api) | 社交媒体 | 强大但需授权，适合话语权、社群研究 |
 | [GitHub API](https://docs.github.com/en/rest) | 开发者社区 | 获取代码、贡献者、项目关系网络等数据 |
 | [Spotify API](https://developer.spotify.com/documentation/web-api) | 媒体推荐 | 支持获取歌曲、歌单、推荐系统数据，需授权 |
-| [TheMealDB API](https://www.themealdb.com/api.php) | 食谱内容 | 数据结构简单，适合 JSON 解析练习 |
 
 > 💡 **建议搭配**：Postman 或 Hoppscotch，用于模拟请求、理解 Header、查询参数等结构。
 
