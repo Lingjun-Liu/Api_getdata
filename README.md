@@ -48,16 +48,7 @@ API 并不仅限于数据读取（Read），它覆盖了数据及业务逻辑的
 | **更新** | PUT / PATCH | 修改现有资源。<br>PUT 替换全部；PATCH 修改部分字段。 | `PATCH /api/v1/users/123` 仅更新邮箱 |
 | **删除** | DELETE | 删除指定资源。 | `DELETE /api/v1/users/123` 删除用户 |
 
-### 2.2 API 作为业务逻辑的执行者
 
-API 并不只是数据库操作的接口，它还可能承载复杂的业务逻辑。
-示例：`POST /api/v1/payments`  
-这个请求可能涉及：
-- 验证账户状态  
-- 调用银行接口  
-- 扣款  
-- 生成收据  
-- 发送通知
 
 ---
 
@@ -132,27 +123,6 @@ API 的访问通常受到严格的认证与授权机制保护，主要有两种�
 7. **结果存储与管理**：将 JSON 数据结构化保存为 CSV、数据库或 Parquet 格式；
 8. **确保可复现性**：保存请求配置、数据字典、日志文件等。
 
-### 5.2 示例代码（Python + requests）
-
-```python
-import requests
-import os
-
-API_KEY = os.getenv("MY_API_KEY")
-url = "https://api.example.com/v1/posts"
-headers = {
-    "Authorization": f"Bearer {API_KEY}",
-    "Accept": "application/json"
-}
-params = {"query": "elder care", "limit": 50}
-
-response = requests.get(url, headers=headers, params=params, timeout=20)
-data = response.json()
-
-print(data)
-```
-
----
 
 ## 🧠 补充内容：深度解析 API 的核心知识与应用
 
@@ -207,25 +177,7 @@ print(data)
 
 ---
 
-### 八、API 的新兴应用与商业价值
-
-#### 8.1 开放 API 与"API 经济"（API Economy）
-
-- 企业通过开放 API 将核心数据能力开放给开发者，形成生态与商业模式。
-- **案例**：
-  - 🔐 **开放银行（Open Banking）**：银行需通过 API 向第三方共享用户授权下的数据；
-  - ☁️ **云计算**：AWS / Azure / GCP 等服务全面 API 化，实现资源管理自动化与按需调用。
-
-#### 8.2 客户端 API 类型
-
-| API 类型 | 描述 | 示例 |
-|----------|------|------|
-| **浏览器 API** | 浏览器内置，供 JS 与浏览器交互 | DOM API, Geolocation API, Web Storage |
-| **操作系统 API** | 操作系统暴露给程序的接口 | Win32 API, Android/iOS SDKs |
-
----
-
-### 九、API 的开发与运维工具链
+### 八、API 的开发与运维工具链
 
 为了保障 API 全生命周期的高质量，现代开发中常用如下工具链：
 
@@ -245,12 +197,15 @@ print(data)
 - 真正理解 API 的架构、认证、配额与限流机制，能帮助你**建立稳定、复现、合规**的数据抓取管道；
 - API 的治理设计思想，也逐步成为理解平台运行逻辑（如社交推荐机制、信息分发规则）的工具。
 
-> 📎 推荐补充阅读：  
-> - [OpenAPI Specification](https://swagger.io/specification/)  
-> - [OAuth 2.0 简介与流程](https://oauth.net/2/)  
-> - [Google Cloud API Best Practices](https://cloud.google.com/apis/design)
+> 📎 **推荐补充阅读： 社会科学家系统的理解API的一些相关资料 **
+ > - [An illustrated introduction to APIs](https://medium.com/epfl-extension-school/an-illustrated-introduction-to-apis-10f8000313b9)
+ > - [Intro to APIs](https://medium.com/@rwilliams_bv/apis-d389aa68104f)
+ > - [Lab Video Lecture: Intro to APIS for Computational Social Scientists](https://youtu.be/OD40nwKuVB8)
+ > - [使用API](https://melaniewalsh.github.io/Intro-Cultural-Analytics/04-Data-Collection/05-What-Is-API.html)
 
-## 📚 推荐学习资源
+
+
+## 📚 更为专业的一些API的内容
 
 以下资料有助于深入理解 API 的架构理念、认证机制及设计规范，适合系统性学习者或准备开发/设计 API 的同学：
 
@@ -275,7 +230,7 @@ print(data)
 | 名称 | 类型 | 特点 |
 |------|------|------|
 | [JSONPlaceholder](https://jsonplaceholder.typicode.com/) | 模拟数据 | 免费、无需认证，API练习场，适合练习 CRUD 操作 |
-| [Reddit API](https://www.reddit.com/dev/api/) | 社交内容 | 适合话题挖掘、情绪分析，支持多种查询 |
+| [Reddit API](https://www.reddit.com/dev/api/) | 社交内容 | 适合话题挖掘、情绪分析，支持多种查询，或许也可以使用[PRAW](https://praw.readthedocs.io/en/latest/getting_started/installation.html) |
 | [Twitter/X API](https://developer.twitter.com/en/docs/twitter-api) | 社交媒体 | 强大但需授权，适合话语权、社群研究 |
 | [GitHub API](https://docs.github.com/en/rest) | 开发者社区 | 获取代码、贡献者、项目关系网络等数据 |
 | [Spotify API](https://developer.spotify.com/documentation/web-api) | 媒体推荐 | 支持获取歌曲、歌单、推荐系统数据，需授权 |
@@ -299,9 +254,9 @@ print(data)
 
 ---
 
-> 💡 **Tips for 学术科研者**：
+> 💡 **个人的一点体会Tips for 学术科研者**：
 >
-> - 可利用这些平台探索尚未结构化的问题空间；
-> - 适合与 Python（`requests`、`httpx`）、R（`httr`）等工具集成调用；
+> - 使用之前需要了解这个平台，至少要知道他的有哪些信息、是如何发布的、传播的流程和机制以及覆盖面等等
+> - 另外很多的大平台已经发展出了一些封装好的R包以及py包，可以直接使用
 > - 注意每个 API 的使用政策、速率限制与数据授权许可，确保研究合规性。
 
