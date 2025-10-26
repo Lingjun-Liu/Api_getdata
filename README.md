@@ -4,6 +4,7 @@
 但是在科研项目中，数据的获取方式往往直接决定了研究的可行性与质量。常见的两种数据抓取方式是 **API（Application Programming Interface）** 和 **网页爬虫（Web Scraping）**。关于[网页爬虫](https://github.com/Lingjun-Liu/Web_scraping)获取数据在这个repository里有介绍，但是坦白的讲这种方式可以用来爬取一些自己懒得复制粘贴的数据最好；如果是用做文本分析呀这数据的合规性就很难说得清了，而且获取的数据结构性也比较差，不适合深入研究。最好还是通过API获取。
 这个部分将系统介绍**API的背景知识以及如何Via API获取数据**，帮助科研工作者选择合适的技术路径。
 
+当然在这部分开始之前必须强调在学术研究中使用这种方法的规范准则和注意事项，这个部分参考[User's data:legal & ethical considerations](https://melaniewalsh.github.io/Intro-Cultural-Analytics/04-Data-Collection/01-User-Ethics-Legal-Concerns.html)
 ---
 
 ## 一、什么是 API？
