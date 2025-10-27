@@ -1,7 +1,4 @@
-
-# _*_ coding:utf-8 _*_
-# @date 2022/9/25
-# @author pingjz
+# 文件名: GaoDe_POI_via_API.py
 # @desc: 利用高德API下载POI数据
 
 import requests
@@ -9,78 +6,56 @@ import pandas as pd
 import os
 # import transCoordinateSystem as tcs
 
-# key(必选)
-amp_api_key = 'd0c463bb5db4bffc4dc6a8870d791c65'
-#  请求地址前缀
+amp_api_key = '你的高德API密钥'
 req_url_pref = "https://restapi.amap.com/v3/place/text?"
-# 分页信息(可选)
-page_size = 25  # 每页25条数据
-page_num = 1    # 代表第1页
 
-#  请求参数
+page_size = 25
+page_num = 1
+
 rep_params = {
-    # "keywords": "大学",
     "types": "高等院校",
     "city": "西安",
-    "offset": page_size,   # 当前页记录数(每页记录数)
-    "page": page_num,      # 当前页
+    "offset": page_size,
+    "page": page_num,
     "extensions": "base",
     "key": amp_api_key,
     "children": 1,
     "citylimit": "true"
 }
 
-
 def get_poi_from_amap():
-    """
-    从高德地图API下载POI数据
-    """
-    result = pd.DataFrame()  # 初始化
+    """从高德地图API下载POI数据"""
+    result = pd.DataFrame()
     i = 1
     while True:
-        print("i:", i)
-        page_num = i
-        rep_params["page"] = page_num
+        print("📄 正在抓取第", i, "页数据...")
+        rep_params["page"] = i
         response = requests.get(req_url_pref, params=rep_params)
-        data = response.json()  # 返回字典数据dict
-        count = data["count"]
-        print("count:", count)
-        if count == "0":   # 结束条件
+        data = response.json()
+        count = int(data["count"])
+        if count == 0:
             break
 
-        #  将每次分页结果数据插入指定目标文件中
-        for j in range(0, len(data["pois"])): # 遍历每一个poi对象，获取name,address等属性
-            name = data["pois"][j]["name"]
-            address = data["pois"][j]["address"]
-            location = data["pois"][j]["location"]
-            lon = float(data["pois"][j]["location"].split(",")[0])
-            lat = float(data["pois"][j]["location"].split(",")[1])
-            # wgs84_lon = tcs.gcj02_to_wgs84(lon,lat)[0]
-            # wgs84_lat = tcs.gcj02_to_wgs84(lon,lat)[1]
-            
-            # 通过字典来构建DataFrame对象
-            busi_data = [
-                {
-                    "name": name,
-                    "address": address,
-                    "location": location,
-                    "lon": lon,
-                    "lat": lat,
-                    "wgs84_lon": wgs84_lon,
-                    "wgs84_lat": wgs84_lat
-                }
-            ]
+        for poi in data["pois"]:
+            name = poi["name"]
+            address = poi["address"]
+            location = poi["location"]
+            lon, lat = map(float, location.split(","))
 
-            df = pd.DataFrame(busi_data)
-            result = result.append(df)  # 将每次j结果union在一块（列方面追加）
-            # 重置索引
-            print(result)
-            # 将脚本所在路径作为excel输出路径
-            output_path = os.getcwd() + os.sep + "poi_school.xlsx"
-            # 将结果写入到output_path 所在d额excel中
-            result.to_excel(output_path)
+            busi_data = [{
+                "name": name,
+                "address": address,
+                "lon": lon,
+                "lat": lat
+            }]
+            result = pd.concat([result, pd.DataFrame(busi_data)], ignore_index=True)
 
-        i = i + 1
+        i += 1
+
+    # 一次性写出
+    output_path = os.path.join(os.getcwd(), "poi_school.xlsx")
+    result.to_excel(output_path, index=False)
+    print("✅ 已保存至:", output_path)
 
 
 if __name__ == '__main__':
